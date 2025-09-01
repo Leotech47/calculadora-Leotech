@@ -61,9 +61,9 @@ A lógica foi construída para simular o funcionamento de uma calculadora físic
 
 3. Clique em `=` ou pressione **Enter** para calcular o resultado.
 
-4. Use * `C` para limpar o display ou *`⌫` para apagar o último caractere.
+4. Use **`C`** para limpar o display ou **`⌫`** para apagar o último caractere.
 
-5. Alterne entre modo claro e escuro clicando no ícone no canto superior direito.
+6. Alterne entre modo claro e escuro clicando no ícone no canto superior direito.
 
    **`C`** → limpa tudo.
    **`⌫`** → apaga o último número.
