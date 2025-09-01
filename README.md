@@ -52,13 +52,18 @@ A lógica foi construída para simular o funcionamento de uma calculadora físic
 
   * 🌙 **Escuro** (default)
   * ☀️ **Claro** (tons suaves e leves)
-  * ⚡ **Neon** (efeito futurista com brilhos e bordas luminosas)
 
 ## 📖 Como Utilizar
 
-1. Abra o arquivo `calculadora_moderna.html` em qualquer navegador moderno.
-2. Escolha um **tema** clicando nos ícones 🌙 ☀️ ⚡.
-3. Use os **botões** ou o **teclado** para realizar cálculos.
+1. Abra o arquivo index.html em qualquer navegador moderno.
+
+2. Use os botões ou teclado para inserir números e operações.
+
+3. Clique em `=` ou pressione **Enter** para calcular o resultado.
+
+4. Use * `C` para limpar o display ou *`⌫` para apagar o último caractere.
+
+5. Alterne entre modo claro e escuro clicando no ícone no canto superior direito.
 
    * `C` → limpa tudo.
    * `⌫` → apaga o último número.
@@ -66,4 +71,10 @@ A lógica foi construída para simular o funcionamento de uma calculadora físic
 4. Resultados são exibidos no display principal, enquanto a operação em andamento aparece no secundário.
 
 ---
+## Créditos
 
+Desenvolvido por Leonardo Silva
+
+GitHub: github.com/leotech47
+
+© 2025 Calculadora LeoTech
