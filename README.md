@@ -75,6 +75,6 @@ A lógica foi construída para simular o funcionamento de uma calculadora físic
 
 Desenvolvido por **Leonardo Silva**
 
-GitHub: github.com/leotech47
+[github.com/leotech47](https://github.com/leotech47)
 
 **© 2025 Calculadora LeoTech**
