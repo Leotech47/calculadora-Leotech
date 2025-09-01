@@ -16,7 +16,7 @@ Este guia explica como realizar o deploy da aplicação **Calculadora LeoTech** 
 
 ### 1. Acesse o Repositório
 
-O código-fonte da aplicação está disponível no GitHub: [https://github.com/leotech47/calculadora-moderna](https://github.com/leotech47/calculadora-moderna)
+O código-fonte da aplicação está disponível no GitHub: [https://github.com/leotech47/calculadora-moderna](https://github.com/leotech47/calculadora-moderna-Leotech)
 
 ### 2. Importe o Projeto para a Vercel
 
