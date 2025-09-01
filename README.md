@@ -65,16 +65,16 @@ A lógica foi construída para simular o funcionamento de uma calculadora físic
 
 5. Alterne entre modo claro e escuro clicando no ícone no canto superior direito.
 
-   * `C` → limpa tudo.
-   * `⌫` → apaga o último número.
-   * `=` ou **Enter** → executa o cálculo.
+   **`C`** → limpa tudo.
+   **`⌫`** → apaga o último número.
+   **`=`** ou **Enter** → executa o cálculo.
 4. Resultados são exibidos no display principal, enquanto a operação em andamento aparece no secundário.
 
 ---
 ## Créditos
 
-Desenvolvido por Leonardo Silva
+Desenvolvido por **Leonardo Silva**
 
 GitHub: github.com/leotech47
 
-© 2025 Calculadora LeoTech
+**© 2025 Calculadora LeoTech**
