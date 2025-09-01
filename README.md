@@ -1,5 +1,3 @@
----
-
 # 📱 Calculadora Moderna
 
 Uma calculadora interativa desenvolvida em **HTML, CSS e JavaScript**, com design moderno e suporte a múltiplos temas (Escuro, Claro e Neon).
