@@ -20,6 +20,12 @@
             height: 100vh;
             margin: 0;
             background: linear-gradient(135deg, #6a11cb, #2575fc);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body.light {
+            background: linear-gradient(135deg, #f9f9f9, #dcdcdc);
+            color: #222;
         }
 
         .calculadora {
@@ -27,6 +33,12 @@
             padding: 20px;
             border-radius: 20px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body.light .calculadora {
+            background: #fff;
+            color: #000;
         }
 
         #resultado {
@@ -38,6 +50,12 @@
             border-radius: 10px;
             margin-bottom: 20px;
             min-height: 50px;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        body.light #resultado {
+            background: #f0f0f0;
+            color: #000;
         }
 
         button {
@@ -84,6 +102,11 @@
             position: fixed;
             bottom: 0;
             left: 0;
+            transition: color 0.3s;
+        }
+
+        body.light footer {
+            color: #000;
         }
 
         footer a {
@@ -94,9 +117,27 @@
         footer a:hover {
             text-decoration: underline;
         }
+
+        .toggle-theme {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 22px;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: #fff;
+            transition: color 0.3s;
+        }
+
+        body.light .toggle-theme {
+            color: #000;
+        }
     </style>
 </head>
 <body>
+    <button class="toggle-theme" onclick="toggleTheme()">🌙</button>
+
     <div class="calculadora">
         <div id="resultado"></div>
         <div>
@@ -177,6 +218,14 @@
                 inserir(".");
             }
         });
+
+        // Alternar tema claro/escuro
+        function toggleTheme() {
+            const body = document.body;
+            const btn = document.querySelector(".toggle-theme");
+            body.classList.toggle("light");
+            btn.textContent = body.classList.contains("light") ? "☀️" : "🌙";
+        }
     </script>
 </body>
 </html>
