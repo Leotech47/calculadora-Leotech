@@ -61,7 +61,7 @@ Vou te mostrar o passo a passo que utilizei para a **Calculadora LeoTech** 🧮
 
 ## 🔹 6. Testando sua aplicação na internet
 
-* Acesse no navegador: `[calculadoraleotech.com.br](https://calculadoraleotech.com.br)`
+* Acesse no navegador: [calculadoraleotech.com.br](https://calculadoraleotech.com.br)
 * Teste também com ferramentas como [DNS Checker](https://dnschecker.org)
 * Pronto 🎉 Aplicação está publicada com domínio próprio!
 
