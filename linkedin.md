@@ -72,6 +72,9 @@ A sensação de ver seu código no ar, acessível para qualquer pessoa, é incr�
 
 👉 E você, já publicou algum projeto com domínio próprio?
 
+[Visite o projeto calculadora Leotech na internet](https://calculadoraleotech.com.br)
+**Desenvolvido por Leonardo Silva - Analista de sistemas**
+
 \#Programação #GitHub #Vercel #RegistroBR #Dev #Tutorial #WebDev #GRAN #ADS #DIO
 
 ---
