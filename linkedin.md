@@ -61,9 +61,9 @@ Vou te mostrar o passo a passo que utilizei para a **Calculadora LeoTech** 🧮
 
 ## 🔹 6. Testando sua aplicação na internet
 
-* Acesse no navegador: `https://calculadoraleotech.com.br`
+* Acesse no navegador: `[calculadoraleotech.com.br](https://calculadoraleotech.com.br)`
 * Teste também com ferramentas como [DNS Checker](https://dnschecker.org)
-* Pronto 🎉 sua aplicação está publicada com domínio próprio!
+* Pronto 🎉 Aplicação está publicada com domínio próprio!
 
 ---
 
@@ -72,7 +72,7 @@ A sensação de ver seu código no ar, acessível para qualquer pessoa, é incr�
 
 👉 E você, já publicou algum projeto com domínio próprio?
 
-\#Programação #GitHub #Vercel #RegistroBR #Dev #Tutorial #WebDev
+\#Programação #GitHub #Vercel #RegistroBR #Dev #Tutorial #WebDev #GRAN #ADS #DIO
 
 ---
 
