@@ -79,4 +79,6 @@ Desenvolvido por **Leonardo Silva**
 
 [Projeto - calculadora Leotech no Vercel](https://calculadora-moderna-leotech.vercel.app/)
 
+[Visite o projeto calculadora Leotech na internet](https://calculadoraleotech.com.br)
+
 **© 2025 Calculadora LeoTech**
