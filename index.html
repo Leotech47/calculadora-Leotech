@@ -112,6 +112,18 @@
     footer a:hover {
       text-decoration: underline;
     }
+
+    #visitor-counter {
+      margin-top: 10px;
+      font-weight: bold;
+      color: #00ffcc;
+    }
+
+    #datetime {
+      margin-top: 5px;
+      color: #ffffff;
+      font-size: 12px;
+    }
   </style>
 </head>
 <body>
@@ -151,6 +163,8 @@
     © Copyright 2025 - Calculadora LeoTech <br>
     Desenvolvido por Leonardo Silva - 
     <a href="https://github.com/leotech47" target="_blank">github.com/leotech47</a>
+    <div id="visitor-counter">VISITANTE Nº: <span id="count">0</span></div>
+    <div id="datetime"></div>
   </footer>
 
   <script>
@@ -240,6 +254,43 @@
         document.querySelector(".display").style.color = "#fff";
         toggleMode.textContent = "🌙";
       }
+    });
+
+    // Visitor Counter Logic
+    function updateVisitorCount() {
+      let count = localStorage.getItem('visitorCount');
+      
+      if (!count) {
+          count = 1;
+      } else {
+          count = parseInt(count) + 1;
+      }
+      
+      localStorage.setItem('visitorCount', count);
+      document.getElementById('count').textContent = count;
+    }
+
+    // Update DateTime
+    function updateDateTime() {
+  const now = new Date();
+  const formatted = now.toLocaleString('pt-BR', {
+    year: 'numeric',
+    month: '2-digit', 
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+  document.getElementById('datetime').textContent = formatted;
+}
+
+    // Call when page loads
+    document.addEventListener('DOMContentLoaded', () => {
+      updateVisitorCount();
+      updateDateTime();
+      // Update time every second
+      setInterval(updateDateTime, 1000);
     });
   </script>
 </body>
