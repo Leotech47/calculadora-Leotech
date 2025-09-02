@@ -124,6 +124,18 @@
       color: #ffffff;
       font-size: 12px;
     }
+
+    /* Indicador de loading para o contador */
+    .loading {
+      color: #ffa500;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
   </style>
 </head>
 <body>
@@ -163,7 +175,7 @@
     © Copyright 2025 - Calculadora LeoTech <br>
     Desenvolvido por Leonardo Silva - 
     <a href="https://github.com/leotech47" target="_blank">github.com/leotech47</a>
-    <div id="visitor-counter">VISITANTE Nº: <span id="count">0</span></div>
+    <div id="visitor-counter">VISITANTE Nº: <span id="count" class="loading">...</span></div>
     <div id="datetime"></div>
   </footer>
 
@@ -172,9 +184,9 @@
     const buttons = document.querySelectorAll("button");
     const toggleMode = document.getElementById("toggleMode");
 
-    // Helpers
-    const opsRegex = /[+\-*/×÷]$/;                 // último char é operador?
-    const splitOpsRegex = /[+\-*/×÷]/;             // separa pelos operadores
+    // Helpers para calculadora
+    const opsRegex = /[+\-*/×÷]$/;
+    const splitOpsRegex = /[+\-*/×÷]/;
 
     function getUltimoNumero(expr) {
       const partes = expr.split(splitOpsRegex);
@@ -184,7 +196,7 @@
     function inserirPonto() {
       const expr = display.textContent || "";
       const ultimo = getUltimoNumero(expr);
-      if (ultimo.includes(".")) return;            // já tem ponto neste número
+      if (ultimo.includes(".")) return;
       if (expr === "" || opsRegex.test(expr)) {
         display.textContent += "0.";
       } else {
@@ -192,7 +204,7 @@
       }
     }
 
-    // Clique nos botões
+    // Event listeners para botões
     buttons.forEach(btn => {
       btn.addEventListener("click", () => {
         const t = btn.textContent.trim();
@@ -256,40 +268,64 @@
       }
     });
 
-    // Visitor Counter Logic
-    function updateVisitorCount() {
-      let count = localStorage.getItem('visitorCount');
+    // ====== CONTADOR DE VISITANTES COM COUNTAPI ======
+    async function updateVisitorCount() {
+      const countElement = document.getElementById('count');
       
-      if (!count) {
-          count = 1;
-      } else {
-          count = parseInt(count) + 1;
+      try {
+        // Namespace único para sua calculadora (mude se quiser)
+        const namespace = 'leotech47-calculator';
+        const key = 'visitors';
+        
+        // Verifica se já contou nesta sessão para evitar múltiplos incrementos
+        const hasVisited = sessionStorage.getItem(`visited_${namespace}_${key}`);
+        
+        let response;
+        if (!hasVisited) {
+          // Primeira visita nesta sessão - incrementa o contador
+          response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
+          sessionStorage.setItem(`visited_${namespace}_${key}`, 'true');
+        } else {
+          // Já visitou nesta sessão - apenas obtém o valor atual
+          response = await fetch(`https://api.countapi.xyz/get/${namespace}/${key}`);
+        }
+        
+        if (!response.ok) {
+          throw new Error(`HTTP ${response.status}`);
+        }
+        
+        const data = await response.json();
+        
+        // Remove classe de loading e mostra o número
+        countElement.classList.remove('loading');
+        countElement.textContent = data.value || 0;
+        
+      } catch (error) {
+        console.error('Erro ao atualizar contador de visitantes:', error);
+        countElement.classList.remove('loading');
+        countElement.textContent = 'N/A';
+        countElement.style.color = '#ff6b6b';
       }
-      
-      localStorage.setItem('visitorCount', count);
-      document.getElementById('count').textContent = count;
     }
 
-    // Update DateTime
+    // ====== ATUALIZAÇÃO DE DATA/HORA LOCAL ======
     function updateDateTime() {
-  const now = new Date();
-  const formatted = now.toLocaleString('pt-BR', {
-    year: 'numeric',
-    month: '2-digit', 
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: false
-  });
-  document.getElementById('datetime').textContent = formatted;
-}
+      const now = new Date();
+      const formatted = String(now.getDate()).padStart(2, '0') + '/' +
+                       String(now.getMonth() + 1).padStart(2, '0') + '/' +
+                       now.getFullYear() + ' ' +
+                       String(now.getHours()).padStart(2, '0') + ':' +
+                       String(now.getMinutes()).padStart(2, '0') + ':' +
+                       String(now.getSeconds()).padStart(2, '0');
+      document.getElementById('datetime').textContent = formatted;
+    }
 
-    // Call when page loads
+    // ====== INICIALIZAÇÃO ======
     document.addEventListener('DOMContentLoaded', () => {
-      updateVisitorCount();
-      updateDateTime();
-      // Update time every second
+      updateVisitorCount(); // Atualiza contador global
+      updateDateTime();     // Atualiza data/hora local
+      
+      // Atualiza a hora a cada segundo
       setInterval(updateDateTime, 1000);
     });
   </script>
