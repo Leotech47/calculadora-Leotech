@@ -1,6 +1,6 @@
-# 📱 Calculadora Moderna
+# 📱 Calculadora LeoTech
 
-Uma calculadora interativa desenvolvida em **HTML, CSS e JavaScript**, com design moderno e suporte a múltiplos temas (Escuro, Claro e Neon).
+Uma calculadora interativa desenvolvida em **HTML, CSS e JavaScript**, com design moderno e suporte a múltiplos temas (Escuro e Claro).
 
 ## 🚀 Tecnologias Utilizadas
 
@@ -44,6 +44,7 @@ A lógica foi construída para simular o funcionamento de uma calculadora físic
 
   * Superior → exibe operação em andamento.
   * Principal → mostra o número atual ou resultado.
+    
 * **Botões com efeitos:**
 
   * `hover` e `active` com animações suaves.
