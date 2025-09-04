@@ -6,90 +6,42 @@
   <title>LeoTech Projects - Calculadora</title>
   <style>
     /* ===== RESET ===== */
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
-
-    body {
-      display: flex;
-      flex-direction: column;
-      min-height: 100vh;
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { display: flex; flex-direction: column; min-height: 100vh; }
 
     /* ===== CABEÇALHO ===== */
     header {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-      padding: 15px 20px;
-      background: #111;
-      color: white;
-      font-size: 20px;
-      font-weight: bold;
+      display: flex; align-items: center; gap: 15px;
+      padding: 15px 20px; background: #111; color: white;
+      font-size: 20px; font-weight: bold;
     }
-
-    header img {
-      height: 50px;
-      width: auto;
-    }
+    header img { height: 50px; width: auto; }
 
     /* ===== CORPO ===== */
     main {
-      flex: 1;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #7b2ff7, #00c6ff);
-      padding: 20px;
+      flex: 1; display: flex; justify-content: center; align-items: center;
+      background: linear-gradient(135deg, #7b2ff7, #00c6ff); padding: 20px;
     }
-
     .calculator {
-      background: #1c1c1c;
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      max-width: 320px;
+      background: #1c1c1c; padding: 20px; border-radius: 15px;
+      box-shadow: 0px 4px 15px rgba(0,0,0,0.4);
+      display: flex; flex-direction: column; align-items: center;
+      width: 100%; max-width: 320px;
     }
-
     .display {
-      width: 100%;
-      height: 60px;
-      background: black;
-      color: white;
-      font-size: 2em;
-      text-align: right;
-      padding: 10px;
-      border-radius: 10px;
-      margin-bottom: 15px;
-      overflow-x: auto;
+      width: 100%; height: 60px; background: black; color: white;
+      font-size: 2em; text-align: right; padding: 10px; border-radius: 10px;
+      margin-bottom: 15px; overflow-x: auto;
     }
-
     .buttons {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 10px;
-      width: 100%;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%;
     }
-
     button {
-      height: 60px;
-      font-size: 1.2em;
-      border: none;
-      border-radius: 10px;
-      cursor: pointer;
-      transition: transform 0.1s;
+      height: 60px; font-size: 1.2em; border: none; border-radius: 10px;
+      cursor: pointer; transition: transform 0.1s, opacity 0.2s;
     }
-
-    button:active {
-      transform: scale(0.95);
-    }
+    button:hover { opacity: 0.9; transform: scale(1.05); }
+    button:active { transform: scale(0.95); }
 
     .btn-operator { background: orange; color: white; }
     .btn-equal    { background: #28a745; color: white; }
@@ -98,62 +50,23 @@
 
     /* ===== RODAPÉ ===== */
     footer {
-      background: #111;
-      color: white;
-      text-align: center;
-      padding: 15px;
-      font-size: 14px;
+      background: #111; color: white; text-align: center;
+      padding: 15px; font-size: 14px;
     }
-
-    footer a {
-      color: #00ffcc;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
+    footer a { color: #00ffcc; text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
     #visitor-counter { margin-top: 10px; font-weight: bold; color: #00ffcc; }
-    #datetime { margin-top: 5px; font-size: 12px; }
-    #user-ip { margin-top: 5px; font-size: 12px; }
-
-    .loading {
-      color: #ffa500;
-      animation: pulse 1.5s infinite;
-    }
-
-    @keyframes pulse {
-      0% { opacity: 1; }
-      50% { opacity: 0.5; }
-      100% { opacity: 1; }
-    }
+    #datetime, #user-ip { margin-top: 5px; font-size: 12px; }
+    .loading { color: #ffa500; animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0% {opacity:1;} 50% {opacity:0.5;} 100% {opacity:1;} }
 
     /* ===== RESPONSIVIDADE ===== */
-    @media (max-width: 600px) {
-      header {
-        flex-direction: column;
-        text-align: center;
-        font-size: 16px;
-      }
-
-      header img {
-        height: 40px;
-      }
-
-      .calculator {
-        max-width: 100%;
-      }
-
-      .display {
-        font-size: 1.5em;
-        height: 50px;
-      }
-
-      button {
-        height: 50px;
-        font-size: 1em;
-      }
+    @media (max-width:600px){
+      header { flex-direction: column; text-align: center; font-size: 16px; }
+      header img { height: 40px; }
+      .calculator { max-width: 100%; }
+      .display { font-size: 1.5em; height: 50px; }
+      button { height: 50px; font-size: 1em; }
     }
   </style>
 </head>
@@ -168,30 +81,30 @@
   <!-- CORPO -->
   <main>
     <div class="calculator">
-      <div class="display" id="display"></div>
+      <div class="display" id="display" aria-label="Display da calculadora"></div>
       <div class="buttons">
-        <button class="btn-clear">C</button>
-        <button>⌫</button>
-        <button class="btn-operator">÷</button>
-        <button class="btn-operator">×</button>
+        <button class="btn-clear" aria-label="Limpar">C</button>
+        <button aria-label="Apagar">⌫</button>
+        <button class="btn-operator" aria-label="Divisão">÷</button>
+        <button class="btn-operator" aria-label="Multiplicação">×</button>
 
-        <button class="btn-number">7</button>
-        <button class="btn-number">8</button>
-        <button class="btn-number">9</button>
-        <button class="btn-operator">-</button>
+        <button class="btn-number" aria-label="Número 7">7</button>
+        <button class="btn-number" aria-label="Número 8">8</button>
+        <button class="btn-number" aria-label="Número 9">9</button>
+        <button class="btn-operator" aria-label="Subtração">-</button>
 
-        <button class="btn-number">4</button>
-        <button class="btn-number">5</button>
-        <button class="btn-number">6</button>
-        <button class="btn-operator">+</button>
+        <button class="btn-number" aria-label="Número 4">4</button>
+        <button class="btn-number" aria-label="Número 5">5</button>
+        <button class="btn-number" aria-label="Número 6">6</button>
+        <button class="btn-operator" aria-label="Adição">+</button>
 
-        <button class="btn-number">1</button>
-        <button class="btn-number">2</button>
-        <button class="btn-number">3</button>
-        <button class="btn-equal">=</button>
+        <button class="btn-number" aria-label="Número 1">1</button>
+        <button class="btn-number" aria-label="Número 2">2</button>
+        <button class="btn-number" aria-label="Número 3">3</button>
+        <button class="btn-equal" aria-label="Igual">=</button>
 
-        <button class="btn-number">0</button>
-        <button class="btn-number">.</button>
+        <button class="btn-number" aria-label="Número 0">0</button>
+        <button class="btn-number" aria-label="Ponto decimal">.</button>
       </div>
     </div>
   </main>
@@ -223,8 +136,20 @@
       const expr = display.textContent || "";
       const ultimo = getUltimoNumero(expr);
       if (ultimo.includes(".")) return;
-      if (expr === "" || opsRegex.test(expr)) display.textContent += "0.";
-      else display.textContent += ".";
+      display.textContent += (expr === "" || opsRegex.test(expr)) ? "0." : ".";
+    }
+
+    function calcular(expr) {
+      try {
+        // Substitui operadores visuais por JS
+        expr = expr.replace(/×/g, "*").replace(/÷/g, "/");
+        // Validar caracteres permitidos
+        if (/[^0-9+\-*/.]/.test(expr)) return "Erro";
+        // Avaliar usando Function (mais seguro que eval)
+        return Function('"use strict";return (' + expr + ')')();
+      } catch {
+        return "Erro";
+      }
     }
 
     buttons.forEach(btn => {
@@ -232,10 +157,8 @@
         const t = btn.textContent.trim();
         if (t === "C") display.textContent = "";
         else if (t === "⌫") display.textContent = display.textContent.slice(0, -1);
-        else if (t === "=") {
-          try { display.textContent = eval(display.textContent.replace(/×/g, "*").replace(/÷/g, "/")); }
-          catch { display.textContent = "Erro"; }
-        } else if (t === ".") inserirPonto();
+        else if (t === "=") display.textContent = calcular(display.textContent);
+        else if (t === ".") inserirPonto();
         else display.textContent += t;
       });
     });
@@ -244,14 +167,12 @@
       const k = e.key;
       if (!isNaN(k) || ["+", "-", "*", "/"].includes(k)) display.textContent += k;
       else if (k === ".") inserirPonto();
-      else if (k === "Enter") {
-        try { display.textContent = eval(display.textContent); } 
-        catch { display.textContent = "Erro"; }
-      }
+      else if (k === "Enter") display.textContent = calcular(display.textContent);
       else if (k === "Backspace") display.textContent = display.textContent.slice(0, -1);
       else if (k.toLowerCase() === "c") display.textContent = "";
     });
 
+    // Contador de visitantes
     async function updateVisitorCount() {
       const countElement = document.getElementById('count');
       try {
@@ -263,7 +184,6 @@
           response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
           sessionStorage.setItem(`visited_${namespace}_${key}`, 'true');
         } else response = await fetch(`https://api.countapi.xyz/get/${namespace}/${key}`);
-        if (!response.ok) throw new Error(`HTTP ${response.status}`);
         const data = await response.json();
         countElement.classList.remove('loading');
         countElement.textContent = data.value || 0;
@@ -274,6 +194,7 @@
       }
     }
 
+    // Data e hora
     function updateDateTime() {
       const now = new Date();
       const formatted = String(now.getDate()).padStart(2,'0') + '/' +
@@ -285,6 +206,7 @@
       document.getElementById('datetime').textContent = formatted;
     }
 
+    // IP do usuário
     async function getUserIP() {
       const ipElement = document.getElementById('user-ip');
       try {
