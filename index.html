@@ -3,168 +3,402 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Calculadora LeoTech</title>
+  <title>LeoTech Projects - Calculadora</title>
   <style>
+    /* ===== RESET ===== */
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
       font-family: Arial, sans-serif;
     }
+
     body {
       display: flex;
       flex-direction: column;
       min-height: 100vh;
-      background-color: #f0f0f0;
     }
-    header, footer {
-      background-color: #333;
-      color: #fff;
-      text-align: center;
-      padding: 10px 0;
+
+    /* ===== CABEÇALHO ===== */
+    header {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      padding: 15px 20px;
+      background: #111;
+      color: white;
+      font-size: 20px;
+      font-weight: bold;
     }
+
     header img {
       height: 50px;
-      vertical-align: middle;
+      width: auto;
     }
-    header h1 {
-      display: inline;
-      margin-left: 10px;
-      font-size: 24px;
-      vertical-align: middle;
-    }
+
+    /* ===== CORPO ===== */
     main {
       flex: 1;
       display: flex;
       justify-content: center;
       align-items: center;
-    }
-    .calculator {
-      background-color: #fff;
+      background: linear-gradient(135deg, #7b2ff7, #00c6ff);
       padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-    input[type="text"] {
+
+    .calculator {
+      background: #1c1c1c;
+      padding: 20px;
+      border-radius: 15px;
+      box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
       width: 100%;
-      height: 50px;
-      font-size: 24px;
-      margin-bottom: 10px;
-      text-align: right;
-      padding: 5px;
-      border-radius: 6px;
-      border: 1px solid #ccc;
+      max-width: 320px;
     }
+
+    .display {
+      width: 100%;
+      height: 60px;
+      background: black;
+      color: white;
+      font-size: 2em;
+      text-align: right;
+      padding: 10px;
+      border-radius: 10px;
+      margin-bottom: 15px;
+      overflow-x: auto;
+    }
+
     .buttons {
       display: grid;
-      grid-template-columns: repeat(4, 60px);
+      grid-template-columns: repeat(4, 1fr);
       gap: 10px;
-      justify-content: center;
+      width: 100%;
     }
+
     button {
-      padding: 15px;
-      font-size: 18px;
-      border-radius: 6px;
+      height: 60px;
+      font-size: 1.2em;
       border: none;
+      border-radius: 10px;
       cursor: pointer;
-      background-color: #eee;
-      transition: background-color 0.2s;
+      transition: transform 0.1s;
     }
-    button:hover {
-      background-color: #ddd;
+
+    button:active {
+      transform: scale(0.95);
+    }
+
+    .btn-operator { background: orange; color: white; }
+    .btn-equal    { background: #28a745; color: white; }
+    .btn-clear    { background: #e0e0e0; }
+    .btn-number   { background: #6c2eb9; color: white; }
+
+    /* ===== RODAPÉ ===== */
+    footer {
+      background: #111;
+      color: white;
+      text-align: center;
+      padding: 15px;
+      font-size: 14px;
+    }
+
+    footer a {
+      color: #00ffcc;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    #visitor-counter { margin-top: 10px; font-weight: bold; color: #00ffcc; }
+    #datetime { margin-top: 5px; font-size: 12px; }
+    #user-ip { margin-top: 5px; font-size: 12px; }
+
+    .loading {
+      color: #ffa500;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+      0% { opacity: 1; }
+      50% { opacity: 0.5; }
+      100% { opacity: 1; }
+    }
+
+    /* ===== RESPONSIVIDADE ===== */
+    @media (max-width: 600px) {
+      header {
+        flex-direction: column;
+        text-align: center;
+        font-size: 16px;
+      }
+
+      header img {
+        height: 40px;
+      }
+
+      .calculator {
+        max-width: 100%;
+      }
+
+      .display {
+        font-size: 1.5em;
+        height: 50px;
+      }
+
+      button {
+        height: 50px;
+        font-size: 1em;
+      }
     }
   </style>
 </head>
 <body>
 
-<header>
-  <img src="logo.png" alt="Logo LeoTech">
-  <h1>Calculadora LeoTech</h1>
-</header>
+  <!-- CABEÇALHO -->
+  <header>
+    <img src="logo.png" alt="Logo LeoTech">
+    <span>LeoTech Projects - Análise e Desenvolvimento de Sistemas</span>
+  </header>
 
-<main>
-  <div class="calculator">
-    <input type="text" id="display" disabled>
-    <div class="buttons">
-      <button>7</button>
-      <button>8</button>
-      <button>9</button>
-      <button>/</button>
+  <!-- CORPO -->
+  <main>
+    <div class="calculator">
+      <div class="display" id="display">0</div>
+      <div class="buttons">
+        <button class="btn-clear">C</button>
+        <button>⌫</button>
+        <button class="btn-operator">÷</button>
+        <button class="btn-operator">×</button>
 
-      <button>4</button>
-      <button>5</button>
-      <button>6</button>
-      <button>*</button>
+        <button class="btn-number">7</button>
+        <button class="btn-number">8</button>
+        <button class="btn-number">9</button>
+        <button class="btn-operator">-</button>
 
-      <button>1</button>
-      <button>2</button>
-      <button>3</button>
-      <button>-</button>
+        <button class="btn-number">4</button>
+        <button class="btn-number">5</button>
+        <button class="btn-number">6</button>
+        <button class="btn-operator">+</button>
 
-      <button>0</button>
-      <button>.</button>
-      <button>=</button>
-      <button>+</button>
+        <button class="btn-number">1</button>
+        <button class="btn-number">2</button>
+        <button class="btn-number">3</button>
+        <button class="btn-equal">=</button>
 
-      <button style="grid-column: span 4; background-color: #f44336; color: white;">C</button>
+        <button class="btn-number">0</button>
+        <button class="btn-number">.</button>
+      </div>
     </div>
-  </div>
-</main>
+  </main>
 
-<footer>
-  <div id="info"></div>
-</footer>
+  <!-- RODAPÉ -->
+  <footer>
+    © 2025 - LeoTech Projects - Análise e Desenvolvimento de Sistemas <br>
+    Projeto e desenvolvimento Web: Leonardo Silva <br>
+    <a href="https://github.com/leotech47" target="_blank">Visite o repositório no Github</a>
+    <div id="visitor-counter">VISITANTE Nº: <span id="count" class="loading">...</span></div>
+    <div id="datetime"></div>
+    <div id="user-ip">Carregando informações do visitante...</div>
+  </footer>
 
-<script>
-  const display = document.getElementById("display");
-  const buttons = document.querySelectorAll("button");
+  <!-- SCRIPT -->
+  <script>
+    const display = document.getElementById("display");
+    const buttons = document.querySelectorAll("button");
 
-  buttons.forEach(button => {
-    button.addEventListener("click", () => {
-      const value = button.textContent;
-      const lastChar = display.value.slice(-1);
+    let currentInput = "0";
+    let operator = null;
+    let previousInput = null;
+    let waitingForOperand = false;
 
-      const operadores = ["+", "-", "*", "/"];
+    function updateDisplay() {
+      display.textContent = currentInput;
+    }
 
-      if (operadores.includes(value) && operadores.includes(lastChar)) {
-        return;
-      }
-
-      if (operadores.includes(value) && display.value === "") {
-        return;
-      }
-
-      if (value === "=") {
-        try {
-          display.value = eval(display.value);
-        } catch {
-          display.value = "Erro";
-        }
-      } else if (value === "C") {
-        display.value = "";
+    function inputNumber(num) {
+      if (waitingForOperand) {
+        currentInput = num;
+        waitingForOperand = false;
       } else {
-        display.value += value;
+        currentInput = currentInput === "0" ? num : currentInput + num;
+      }
+      updateDisplay();
+    }
+
+    function inputOperator(nextOperator) {
+      const inputValue = parseFloat(currentInput);
+
+      if (previousInput === null) {
+        previousInput = inputValue;
+      } else if (operator) {
+        const currentValue = previousInput || 0;
+        const newValue = calculate(currentValue, inputValue, operator);
+
+        currentInput = String(newValue);
+        previousInput = newValue;
+        updateDisplay();
+      }
+
+      waitingForOperand = true;
+      operator = nextOperator;
+    }
+
+    function inputDot() {
+      if (waitingForOperand) {
+        currentInput = "0.";
+        waitingForOperand = false;
+      } else if (currentInput.indexOf(".") === -1) {
+        currentInput += ".";
+      }
+      updateDisplay();
+    }
+
+    function clear() {
+      currentInput = "0";
+      previousInput = null;
+      operator = null;
+      waitingForOperand = false;
+      updateDisplay();
+    }
+
+    function backspace() {
+      if (currentInput.length > 1) {
+        currentInput = currentInput.slice(0, -1);
+      } else {
+        currentInput = "0";
+      }
+      updateDisplay();
+    }
+
+    function calculate(firstOperand, secondOperand, operator) {
+      switch (operator) {
+        case "+": return firstOperand + secondOperand;
+        case "-": return firstOperand - secondOperand;
+        case "×": return firstOperand * secondOperand;
+        case "÷": return secondOperand !== 0 ? firstOperand / secondOperand : 0;
+        default: return secondOperand;
+      }
+    }
+
+    function performCalculation() {
+      const inputValue = parseFloat(currentInput);
+
+      if (previousInput !== null && operator) {
+        const newValue = calculate(previousInput, inputValue, operator);
+        currentInput = String(newValue);
+        previousInput = null;
+        operator = null;
+        waitingForOperand = true;
+        updateDisplay();
+      }
+    }
+
+    buttons.forEach(btn => {
+      btn.addEventListener("click", () => {
+        const buttonText = btn.textContent.trim();
+        
+        if (buttonText >= "0" && buttonText <= "9") {
+          inputNumber(buttonText);
+        } else if (buttonText === ".") {
+          inputDot();
+        } else if (["+", "-", "×", "÷"].includes(buttonText)) {
+          inputOperator(buttonText);
+        } else if (buttonText === "=") {
+          performCalculation();
+        } else if (buttonText === "C") {
+          clear();
+        } else if (buttonText === "⌫") {
+          backspace();
+        }
+      });
+    });
+
+    document.addEventListener("keydown", (e) => {
+      const key = e.key;
+      
+      if (key >= "0" && key <= "9") {
+        inputNumber(key);
+      } else if (key === ".") {
+        inputDot();
+      } else if (key === "+") {
+        inputOperator("+");
+      } else if (key === "-") {
+        inputOperator("-");
+      } else if (key === "*") {
+        inputOperator("×");
+      } else if (key === "/") {
+        e.preventDefault();
+        inputOperator("÷");
+      } else if (key === "Enter" || key === "=") {
+        performCalculation();
+      } else if (key === "Backspace") {
+        backspace();
+      } else if (key.toLowerCase() === "c") {
+        clear();
+      } else if (key === "Escape") {
+        clear();
       }
     });
-  });
 
-  // Atualiza data, hora e IP
-  async function updateFooter() {
-    const now = new Date();
-    let ip = "Desconhecido";
-    try {
-      const response = await fetch('https://api.ipify.org?format=json');
-      const data = await response.json();
-      ip = data.ip;
-    } catch {}
+    // Inicializar display
+    updateDisplay();
 
-    document.getElementById("info").textContent =
-      `Data/Hora: ${now.toLocaleString()} | IP: ${ip} | © 2025 LeoTech`;
-  }
+    async function updateVisitorCount() {
+      const countElement = document.getElementById('count');
+      try {
+        const namespace = 'leotech47-calculator';
+        const key = 'visitors';
+        const hasVisited = sessionStorage.getItem(`visited_${namespace}_${key}`);
+        let response;
+        if (!hasVisited) {
+          response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
+          sessionStorage.setItem(`visited_${namespace}_${key}`, 'true');
+        } else response = await fetch(`https://api.countapi.xyz/get/${namespace}/${key}`);
+        if (!response.ok) throw new Error(`HTTP ${response.status}`);
+        const data = await response.json();
+        countElement.classList.remove('loading');
+        countElement.textContent = data.value || 0;
+      } catch {
+        countElement.classList.remove('loading');
+        countElement.textContent = 'N/A';
+        countElement.style.color = '#ff6b6b';
+      }
+    }
 
-  updateFooter();
-  setInterval(updateFooter, 1000);
-</script>
+    function updateDateTime() {
+      const now = new Date();
+      const formatted = String(now.getDate()).padStart(2,'0') + '/' +
+                        String(now.getMonth()+1).padStart(2,'0') + '/' +
+                        now.getFullYear() + ' ' +
+                        String(now.getHours()).padStart(2,'0') + ':' +
+                        String(now.getMinutes()).padStart(2,'0') + ':' +
+                        String(now.getSeconds()).padStart(2,'0');
+      document.getElementById('datetime').textContent = formatted;
+    }
 
+    async function getUserIP() {
+      const ipElement = document.getElementById('user-ip');
+      try {
+        const response = await fetch('https://ipapi.co/json/');
+        const data = await response.json();
+        ipElement.textContent = `Seu IP: ${data.ip} | Localização: ${data.city}, ${data.country_name}`;
+      } catch {
+        ipElement.textContent = 'IP/Localização não disponível';
+        ipElement.style.color = '#ff6b6b';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      updateVisitorCount();
+      updateDateTime();
+      setInterval(updateDateTime, 1000);
+      getUserIP();
+    });
+  </script>
 </body>
 </html>
