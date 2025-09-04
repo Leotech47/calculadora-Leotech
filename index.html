@@ -15,7 +15,7 @@
       padding: 15px 20px; background: #111; color: white;
       font-size: 20px; font-weight: bold;
     }
-    header img { height: 50px; width: auto; }
+    header img { height: 60px; width: auto; }
 
     /* ===== CORPO ===== */
     main {
@@ -23,21 +23,21 @@
       background: linear-gradient(135deg, #7b2ff7, #00c6ff); padding: 20px;
     }
     .calculator {
-      background: #1c1c1c; padding: 20px; border-radius: 15px;
-      box-shadow: 0px 4px 15px rgba(0,0,0,0.4);
+      background: #1c1c1c; padding: 30px; border-radius: 20px;
+      box-shadow: 0px 6px 20px rgba(0,0,0,0.5);
       display: flex; flex-direction: column; align-items: center;
-      width: 100%; max-width: 320px;
+      width: 100%; max-width: 380px;
     }
     .display {
-      width: 100%; height: 60px; background: black; color: white;
-      font-size: 2em; text-align: right; padding: 10px; border-radius: 10px;
-      margin-bottom: 15px; overflow-x: auto;
+      width: 100%; height: 70px; background: black; color: white;
+      font-size: 2.2em; text-align: right; padding: 15px; border-radius: 12px;
+      margin-bottom: 20px; overflow-x: auto;
     }
     .buttons {
-      display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; width: 100%;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; width: 100%;
     }
     button {
-      height: 60px; font-size: 1.2em; border: none; border-radius: 10px;
+      height: 70px; font-size: 1.3em; border: none; border-radius: 12px;
       cursor: pointer; transition: transform 0.1s, opacity 0.2s;
     }
     button:hover { opacity: 0.9; transform: scale(1.05); }
@@ -55,18 +55,15 @@
     }
     footer a { color: #00ffcc; text-decoration: none; }
     footer a:hover { text-decoration: underline; }
-    #visitor-counter { margin-top: 10px; font-weight: bold; color: #00ffcc; }
     #datetime, #user-ip { margin-top: 5px; font-size: 12px; }
-    .loading { color: #ffa500; animation: pulse 1.5s infinite; }
-    @keyframes pulse { 0% {opacity:1;} 50% {opacity:0.5;} 100% {opacity:1;} }
 
     /* ===== RESPONSIVIDADE ===== */
     @media (max-width:600px){
       header { flex-direction: column; text-align: center; font-size: 16px; }
-      header img { height: 40px; }
-      .calculator { max-width: 100%; }
-      .display { font-size: 1.5em; height: 50px; }
-      button { height: 50px; font-size: 1em; }
+      header img { height: 50px; }
+      .calculator { max-width: 100%; padding: 20px; }
+      .display { font-size: 1.8em; height: 60px; padding: 10px; }
+      button { height: 55px; font-size: 1.1em; }
     }
   </style>
 </head>
@@ -111,10 +108,9 @@
 
   <!-- RODAPÉ -->
   <footer>
-    © 2025 - LeoTech Projects - Análise e Desenvolvimento de Sistemas <br>
+    © 2025 - LeoTech Projects <br>
     Projeto e desenvolvimento Web: Leonardo Silva <br>
     <a href="https://github.com/leotech47" target="_blank">Visite o repositório no Github</a>
-    <div id="visitor-counter">VISITANTE Nº: <span id="count" class="loading">...</span></div>
     <div id="datetime"></div>
     <div id="user-ip">Carregando informações do visitante...</div>
   </footer>
@@ -123,7 +119,6 @@
   <script>
     const display = document.getElementById("display");
     const buttons = document.querySelectorAll("button");
-
     const opsRegex = /[+\-*/×÷]$/;
     const splitOpsRegex = /[+\-*/×÷]/;
 
@@ -141,11 +136,8 @@
 
     function calcular(expr) {
       try {
-        // Substitui operadores visuais por JS
         expr = expr.replace(/×/g, "*").replace(/÷/g, "/");
-        // Validar caracteres permitidos
         if (/[^0-9+\-*/.]/.test(expr)) return "Erro";
-        // Avaliar usando Function (mais seguro que eval)
         return Function('"use strict";return (' + expr + ')')();
       } catch {
         return "Erro";
@@ -172,39 +164,13 @@
       else if (k.toLowerCase() === "c") display.textContent = "";
     });
 
-    // Contador de visitantes
-    async function updateVisitorCount() {
-      const countElement = document.getElementById('count');
-      try {
-        const namespace = 'leotech47-calculator';
-        const key = 'visitors';
-        const hasVisited = sessionStorage.getItem(`visited_${namespace}_${key}`);
-        let response;
-        if (!hasVisited) {
-          response = await fetch(`https://api.countapi.xyz/hit/${namespace}/${key}`);
-          sessionStorage.setItem(`visited_${namespace}_${key}`, 'true');
-        } else response = await fetch(`https://api.countapi.xyz/get/${namespace}/${key}`);
-        const data = await response.json();
-        countElement.classList.remove('loading');
-        countElement.textContent = data.value || 0;
-      } catch {
-        countElement.classList.remove('loading');
-        countElement.textContent = 'N/A';
-        countElement.style.color = '#ff6b6b';
-      }
-    }
-
     // Data e hora
     function updateDateTime() {
       const now = new Date();
-      const formatted = String(now.getDate()).padStart(2,'0') + '/' +
-                        String(now.getMonth()+1).padStart(2,'0') + '/' +
-                        now.getFullYear() + ' ' +
-                        String(now.getHours()).padStart(2,'0') + ':' +
-                        String(now.getMinutes()).padStart(2,'0') + ':' +
-                        String(now.getSeconds()).padStart(2,'0');
-      document.getElementById('datetime').textContent = formatted;
+      document.getElementById('datetime').textContent = now.toLocaleString('pt-BR');
     }
+    setInterval(updateDateTime, 1000);
+    updateDateTime();
 
     // IP do usuário
     async function getUserIP() {
@@ -218,13 +184,7 @@
         ipElement.style.color = '#ff6b6b';
       }
     }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      updateVisitorCount();
-      updateDateTime();
-      setInterval(updateDateTime, 1000);
-      getUserIP();
-    });
+    getUserIP();
   </script>
 </body>
 </html>
