@@ -168,7 +168,7 @@
   <!-- CORPO -->
   <main>
     <div class="calculator">
-      <div class="display" id="display"></div>
+      <div class="display" id="display">0</div>
       <div class="buttons">
         <button class="btn-clear">C</button>
         <button>⌫</button>
@@ -211,46 +211,142 @@
     const display = document.getElementById("display");
     const buttons = document.querySelectorAll("button");
 
-    const opsRegex = /[+\-*/×÷]$/;
-    const splitOpsRegex = /[+\-*/×÷]/;
+    let currentInput = "0";
+    let operator = null;
+    let previousInput = null;
+    let waitingForOperand = false;
 
-    function getUltimoNumero(expr) {
-      const partes = expr.split(splitOpsRegex);
-      return partes[partes.length - 1];
+    function updateDisplay() {
+      display.textContent = currentInput;
     }
 
-    function inserirPonto() {
-      const expr = display.textContent || "";
-      const ultimo = getUltimoNumero(expr);
-      if (ultimo.includes(".")) return;
-      if (expr === "" || opsRegex.test(expr)) display.textContent += "0.";
-      else display.textContent += ".";
+    function inputNumber(num) {
+      if (waitingForOperand) {
+        currentInput = num;
+        waitingForOperand = false;
+      } else {
+        currentInput = currentInput === "0" ? num : currentInput + num;
+      }
+      updateDisplay();
+    }
+
+    function inputOperator(nextOperator) {
+      const inputValue = parseFloat(currentInput);
+
+      if (previousInput === null) {
+        previousInput = inputValue;
+      } else if (operator) {
+        const currentValue = previousInput || 0;
+        const newValue = calculate(currentValue, inputValue, operator);
+
+        currentInput = String(newValue);
+        previousInput = newValue;
+        updateDisplay();
+      }
+
+      waitingForOperand = true;
+      operator = nextOperator;
+    }
+
+    function inputDot() {
+      if (waitingForOperand) {
+        currentInput = "0.";
+        waitingForOperand = false;
+      } else if (currentInput.indexOf(".") === -1) {
+        currentInput += ".";
+      }
+      updateDisplay();
+    }
+
+    function clear() {
+      currentInput = "0";
+      previousInput = null;
+      operator = null;
+      waitingForOperand = false;
+      updateDisplay();
+    }
+
+    function backspace() {
+      if (currentInput.length > 1) {
+        currentInput = currentInput.slice(0, -1);
+      } else {
+        currentInput = "0";
+      }
+      updateDisplay();
+    }
+
+    function calculate(firstOperand, secondOperand, operator) {
+      switch (operator) {
+        case "+": return firstOperand + secondOperand;
+        case "-": return firstOperand - secondOperand;
+        case "×": return firstOperand * secondOperand;
+        case "÷": return secondOperand !== 0 ? firstOperand / secondOperand : 0;
+        default: return secondOperand;
+      }
+    }
+
+    function performCalculation() {
+      const inputValue = parseFloat(currentInput);
+
+      if (previousInput !== null && operator) {
+        const newValue = calculate(previousInput, inputValue, operator);
+        currentInput = String(newValue);
+        previousInput = null;
+        operator = null;
+        waitingForOperand = true;
+        updateDisplay();
+      }
     }
 
     buttons.forEach(btn => {
       btn.addEventListener("click", () => {
-        const t = btn.textContent.trim();
-        if (t === "C") display.textContent = "";
-        else if (t === "⌫") display.textContent = display.textContent.slice(0, -1);
-        else if (t === "=") {
-          try { display.textContent = eval(display.textContent.replace(/×/g, "*").replace(/÷/g, "/")); }
-          catch { display.textContent = "Erro"; }
-        } else if (t === ".") inserirPonto();
-        else display.textContent += t;
+        const buttonText = btn.textContent.trim();
+        
+        if (buttonText >= "0" && buttonText <= "9") {
+          inputNumber(buttonText);
+        } else if (buttonText === ".") {
+          inputDot();
+        } else if (["+", "-", "×", "÷"].includes(buttonText)) {
+          inputOperator(buttonText);
+        } else if (buttonText === "=") {
+          performCalculation();
+        } else if (buttonText === "C") {
+          clear();
+        } else if (buttonText === "⌫") {
+          backspace();
+        }
       });
     });
 
     document.addEventListener("keydown", (e) => {
-      const k = e.key;
-      if (!isNaN(k) || ["+", "-", "*", "/"].includes(k)) display.textContent += k;
-      else if (k === ".") inserirPonto();
-      else if (k === "Enter") {
-        try { display.textContent = eval(display.textContent); } 
-        catch { display.textContent = "Erro"; }
+      const key = e.key;
+      
+      if (key >= "0" && key <= "9") {
+        inputNumber(key);
+      } else if (key === ".") {
+        inputDot();
+      } else if (key === "+") {
+        inputOperator("+");
+      } else if (key === "-") {
+        inputOperator("-");
+      } else if (key === "*") {
+        inputOperator("×");
+      } else if (key === "/") {
+        e.preventDefault();
+        inputOperator("÷");
+      } else if (key === "Enter" || key === "=") {
+        performCalculation();
+      } else if (key === "Backspace") {
+        backspace();
+      } else if (key.toLowerCase() === "c") {
+        clear();
+      } else if (key === "Escape") {
+        clear();
       }
-      else if (k === "Backspace") display.textContent = display.textContent.slice(0, -1);
-      else if (k.toLowerCase() === "c") display.textContent = "";
     });
+
+    // Inicializar display
+    updateDisplay();
 
     async function updateVisitorCount() {
       const countElement = document.getElementById('count');
