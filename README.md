@@ -124,7 +124,7 @@ calculadora-leotech/
 
 ## 🔗 Links e Deploy
 
-* **GitHub** → [github.com/leotech47](https://github.com/leotech47)
+* **GitHub** → [github.com/leotech-projects](https://github.com/leotech-projects)
 * **Deploy Vercel** → [calculadora-moderna-leotech.vercel.app](https://calculadora-moderna-leotech.vercel.app/)
 * **Domínio Próprio** → [calculadoraleotech.com.br](https://calculadoraleotech.com.br)
 
@@ -144,7 +144,7 @@ calculadora-leotech/
 Especialista em desenvolvimento web front-end e lógica de programação
 
 ### **Contato**
-* GitHub: [@leotech47](https://github.com/leotech47)
+* GitHub: [@leotech-projects](https://github.com/leotech-projects)
 * Projeto: LeoTech Projects
 
 ---
